@@ -110,6 +110,7 @@ void
 sema_up (struct semaphore *sema) 
 {
   enum intr_level old_level;
+  struct thread *poped;
 
   ASSERT (sema != NULL);
 
@@ -117,10 +118,14 @@ sema_up (struct semaphore *sema)
   if (!list_empty (&sema->waiters)){
     /* priority 순으로 sort 한 다음 pop */
     list_sort(&sema->waiters, compare_priority, NULL);
-    thread_unblock (list_entry (list_pop_front (&sema->waiters),
-                                struct thread, elem));
+    poped = list_entry (list_pop_front (&sema->waiters), struct thread, elem);
+    thread_unblock (poped);
   }
   sema->value++;
+
+  if(thread_current()->priority < poped->priority)
+    thread_yield();
+
   intr_set_level (old_level);
 }
 
