@@ -319,6 +319,15 @@ void
 thread_set_priority (int new_priority) 
 {
   thread_current ()->priority = new_priority;
+
+  /* ready list에 더 큰 priority를 가진 애가 있으면 yield */
+  enum intr_level old_level = intr_disable();
+  if(!list_empty(&ready_list)){
+    list_sort(&ready_list, compare_priority, NULL);
+    if(new_priority < list_entry(list_begin(&ready_list), struct thread, elem)->priority)
+      thread_yield();
+  }
+  intr_set_level(old_level);
 }
 
 /* Returns the current thread's priority. */
@@ -570,7 +579,7 @@ compare_priority(const struct list_elem *left, const struct list_elem *right, vo
   const struct thread *l = list_entry(left, struct thread, elem);
   const struct thread *r = list_entry(right, struct thread, elem);
 
-  if(l->priority < r->priority)
+  if(l->priority > r->priority)
     return true;
   return false;
 }
