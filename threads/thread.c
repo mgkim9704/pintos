@@ -319,6 +319,7 @@ void
 thread_set_priority (int new_priority) 
 {
   thread_current ()->priority = new_priority;
+  thread_current ()->temp_priority = new_priority;
 
   /* ready list에 더 큰 priority를 가진 애가 있으면 yield */
   enum intr_level old_level = intr_disable();
@@ -453,6 +454,8 @@ init_thread (struct thread *t, const char *name, int priority)
   t->stack = (uint8_t *) t + PGSIZE;
   t->priority = priority;
   t->magic = THREAD_MAGIC;
+
+  t->temp_priority = priority;
 }
 
 /* Allocates a SIZE-byte frame at the top of thread T's stack and

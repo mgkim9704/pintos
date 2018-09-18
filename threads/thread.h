@@ -103,6 +103,7 @@ struct thread
 
     /* @@@ timer.c */
     int64_t wakeup_ticks;		/* tick 저장 */
+    int temp_priority;
   };
 
 /* If false (default), use round-robin scheduler.

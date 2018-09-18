@@ -1,4 +1,4 @@
-Writing command line to /tmp/TzLONR6d_0.dsk...
+Writing command line to /tmp/wCgIUNCnH8.dsk...
 warning: can't find squish-pty, so terminal input will fail
 bochs -q
 Kernel command line: -q run priority-donate-multiple2
@@ -9,9 +9,9 @@ Calibrating timer...  204,600 loops/s.
 Boot complete.
 Executing 'priority-donate-multiple2':
 (priority-donate-multiple2) begin
-(priority-donate-multiple2) Main thread should have priority 34.  Actual priority: 31.
+(priority-donate-multiple2) Main thread should have priority 34.  Actual priority: 34.
 (priority-donate-multiple2) Thread c finished.
-(priority-donate-multiple2) Main thread should have priority 36.  Actual priority: 31.
+(priority-donate-multiple2) Main thread should have priority 36.  Actual priority: 36.
 (priority-donate-multiple2) Thread a acquired lock a.
 (priority-donate-multiple2) Thread a finished.
 (priority-donate-multiple2) Main thread should have priority 36.  Actual priority: 31.
