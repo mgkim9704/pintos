@@ -76,6 +76,7 @@ sema_down (struct semaphore *sema)
       list_push_back (&sema->waiters, &thread_current ()->elem);
       thread_block ();
     }
+  thread_yield(); //
   sema->value--;
   intr_set_level (old_level);
 }
@@ -127,10 +128,10 @@ sema_up (struct semaphore *sema)
   }
   sema->value++;
 
-  if(thread_current()->priority < poped->priority)
-    thread_yield();
+  intr_set_level(old_level);
 
-  intr_set_level (old_level);
+//  if(thread_current()->priority < poped->priority)
+    thread_yield();
 }
 
 static void sema_test_helper (void *sema_);
@@ -215,7 +216,7 @@ lock_acquire (struct lock *lock)
 
   if(lock_holder && lock_holder->priority < curr->priority){
     lock_holder->priority = curr->priority;
-    thread_yield();
+//    thread_yield();
   }
 
 //  donation(lock, curr);

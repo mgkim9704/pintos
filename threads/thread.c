@@ -335,7 +335,11 @@ thread_set_priority (int new_priority)
 int
 thread_get_priority (void) 
 {
-  return thread_current ()->priority;
+  /* priority를 읽어 오는 동안 running thread가 바뀌지 않도록 하기 위해 */
+  enum intr_level old_level = intr_disable();
+  int priority = thread_current ()->priority;
+  intr_set_level(old_level);
+  return priority;
 }
 
 /* Sets the current thread's nice value to NICE. */

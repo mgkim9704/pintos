@@ -1,4 +1,4 @@
-Writing command line to /tmp/QgF5IHIFvJ.dsk...
+Writing command line to /tmp/8MNrIc7mLM.dsk...
 warning: can't find squish-pty, so terminal input will fail
 bochs -q
 Kernel command line: -q -mlfqs run mlfqs-block
@@ -15,11 +15,15 @@ Executing 'mlfqs-block':
 (mlfqs-block) Block thread acquiring lock...
 (mlfqs-block) Main thread spinning for 5 seconds...
 (mlfqs-block) Main thread releasing lock.
-(mlfqs-block) Block thread should have already acquired lock.
-(mlfqs-block) end
-Execution of 'mlfqs-block' complete.
-Timer: 3066 ticks
-Thread: 487 idle ticks, 2583 kernel ticks, 0 user ticks
-Console: 750 characters output
+(mlfqs-block) (mlfqs-block) Block thread should have already ...got it.Kernel PANIC at ../../lib/kernel/console.c:187 in putchar_have_lock(): assertion `console_locked_by_current_thread ()' failed.
+Call stack: 0xc002fdf8Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc0105442
+ cr2=000000bb error=00000000
+ eax=000000bb ebx=000000bb ecx=c002fd24 edx=000003d4
+ esi=c010c335 edi=c010daf9 esp=c010d59b ebp=c002fdb8
+ cs=0008 ds=0010 es=0010 ss=fdf8
+Kernel PANIC recursion at ../../threads/interrupt.c:373 in intr_handler().
+Timer: 3063 ticks
+Thread: 487 idle ticks, 2576 kernel ticks, 0 user ticks
+Console: 1156 characters output
 Keyboard: 0 keys pressed
 Powering off...
